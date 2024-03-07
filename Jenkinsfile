@@ -18,8 +18,8 @@ pipeline {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'AwsTest',
-                    accessKeyVariable: 'AKIAYS2NVHZPDU6BCDNX',
-                    secretKeyVariable: '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']]){
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                         sh(script: 'aws s3 cp /var/lib/jenkins/workspace/Pipeline/index.html s3://bunkakai-deploy/')
                 }
             }
