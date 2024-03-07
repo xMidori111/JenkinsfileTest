@@ -14,7 +14,14 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo '03 Deploy'
+                echo 'Deploying'
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'AwsTest',
+                    accessKeyVariable: 'AKIAYS2NVHZPDU6BCDNX',
+                    secretKeyVariable: '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']]){
+                        sh(script: 'aws s3 cp /var/lib/jenkins/workspace/Pipeline/index.html S3://bunkakai-deploy/')
+                }
             }
         }
         stage('Test') {
