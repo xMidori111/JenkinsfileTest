@@ -43,6 +43,13 @@ pipeline {
         stage('Release') {
             steps {
                 echo '05 Release'
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'AwsTest',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+                        sh(script: 'aws s3 cp /var/lib/jenkins/workspace/Pipeline/index.html s3://bunkakai-release/')
+                }
             }
         }
     }
